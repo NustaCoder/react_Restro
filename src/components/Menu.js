@@ -7,13 +7,15 @@ import {
   CardBody,
   CardTitle
 } from "reactstrap";
+import DishDetails from "./dishedetails";
 
 class Menu extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      selectedDish: null
+      selectedDish: null,
+      msg: "fcked"
     };
   }
 
@@ -21,20 +23,11 @@ class Menu extends Component {
     this.setState({ selectedDish: dish });
   }
 
-  renderDish(dish) {
-    if (dish != null)
-      return (
-        <Card>
-          <CardImg top src={dish.image} alt={dish.name} />
-          <CardBody>
-            <CardTitle>{dish.name}</CardTitle>
-            <CardText>{dish.description}</CardText>
-          </CardBody>
-        </Card>
-      );
-    else return <div></div>;
+  callComponent(dish) {
+    if (dish != null) {
+      return <DishDetails selectedDish={this.state.selectedDish} />;
+    }
   }
-
   render() {
     const menu = this.props.dishes.map(dish => {
       return (
@@ -52,11 +45,7 @@ class Menu extends Component {
     return (
       <div className="container">
         <div className="row">{menu}</div>
-        <div className="row">
-          <div className="col-12 col-md-5 m-1">
-            {this.renderDish(this.state.selectedDish)}
-          </div>
-        </div>
+        {this.callComponent(this.state.selectedDish)}
       </div>
     );
   }
