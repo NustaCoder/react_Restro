@@ -45,7 +45,14 @@ class dishDetails extends Component {
       return (
         <div>
           <h4>{dish.comment}</h4>
-          <p>{dish.author}</p>
+          <p>
+            --{dish.author},{" "}
+            {new Intl.DateTimeFormat("en-US", {
+              year: "numeric",
+              month: "short",
+              day: "2-digit"
+            }).format(new Date(Date.parse(dish.date)))}
+          </p>
         </div>
       );
     });
