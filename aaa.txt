@@ -1,0 +1,33 @@
+onDishSelect(dish) {
+    this.setState({ selectedDish: dish });
+  }
+
+  callComponent(dish) {
+    if (dish != null) {
+      return (
+        <DishDetails
+          selectedDish={
+            this.state.dishes.filter(
+              dish => dish.id === this.state.selectedDish
+            )[0]
+          }
+        />
+      );
+    }
+  }
+
+const comm = props.comments.map(comment => {
+      return (
+        <div>
+          <h4>Comments</h4>
+          <p>
+            --{comment.author},{" "}
+            {new Intl.DateTimeFormat("en-US", {
+              year: "numeric",
+              month: "short",
+              day: "2-digit"
+            }).format(new Date(Date.parse(comment.date)))}
+          </p>
+        </div>
+      );
+    });
