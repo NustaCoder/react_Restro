@@ -5,6 +5,7 @@ import {
   Form, FormGroup, Input, Label
 } from 'reactstrap';
 import { NavLink } from "react-router-dom";
+
 class Header extends Component {
   constructor(props) {
     super(props);
@@ -46,7 +47,7 @@ class Header extends Component {
                 src="assets/images/logo.png"
                 height="30"
                 width="41"
-                alt="Ristorante Con Fusion"
+                alt="Famished Restaurant"
               />
             </NavbarBrand>
             <Collapse isOpen={this.state.isNavOpen} navbar>
@@ -125,4 +126,4 @@ class Header extends Component {
   }
 }
 
-export default Header;
+export default Header

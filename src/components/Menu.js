@@ -4,13 +4,15 @@ import {
   CardTitle, Breadcrumb, BreadcrumbItem
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { Loading } from "./LoadingComponent";
+import { baseUrl } from '../shared/baseUrl';
 
 function RenderMenu({ dish }) {
   return (
     <div className="col-12 col-md-5 m-1">
       <Card>
         <Link to={`/menu/${dish.id}`} >
-          <CardImg width="100%" src={dish.image} alt={dish.name} />
+          <CardImg width="100%" src={baseUrl + dish.image} alt={dish.name} />
           <CardImgOverlay>
             <CardTitle>{dish.name}</CardTitle>
           </CardImgOverlay>
@@ -21,8 +23,30 @@ function RenderMenu({ dish }) {
 }
 
 function Menu(props) {
-  const menu = props.dishes.map(dish => {
-    return <RenderMenu dish={dish} />;
+  const menu = props.dishes.dishes.map(dish => {
+    if (props.dishes.isLoading) {
+      return (
+        <div className="container">
+          <div className="row">
+            <Loading />
+          </div>
+        </div>
+      );
+    }
+    else if (props.dishes.errMess) {
+      return (
+        <div className="container">
+          <div className="row">
+            <div className="col-12">
+              <h4>{props.dishes.errMess}</h4>
+            </div>
+          </div>
+        </div>
+      );
+    }
+    else {
+      return <RenderMenu dish={dish} />;
+    }
   });
 
   return (

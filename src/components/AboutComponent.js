@@ -1,25 +1,33 @@
 import React from 'react';
 import { Breadcrumb, BreadcrumbItem, Card, CardImg, CardBody, CardHeader, Media } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { baseUrl } from "../shared/baseUrl";
+import { FadeTransform, Stagger } from "react-animation-components";
 
 function About(props) {
 
 
-    function RenderLeaders() {
-        const leaders = props.leaders.map((leader) => {
+    function RenderLeaders({ item }) {
+        const leaders = item.map((leader) => {
             return (
-                <div className="row">
-                    <div className="col-2 col-md-2 m-3">
-                        <Card>
-                            <CardImg top src={leader.image} alt={leader.name} />
-                        </Card>
+                <FadeTransform
+                    in
+                    transformProps={{
+                        exitTransform: 'scale(0.5) translateY(-50%)'
+                    }}>
+                    <div className="row">
+                        <div className="col-2 col-md-2 m-3">
+                            <Card>
+                                <CardImg top src={baseUrl + leader.image} alt={leader.name} />
+                            </Card>
+                        </div>
+                        <div className="col-9 m-2">
+                            <h4>{leader.name}</h4>
+                            <p>{leader.designation}</p>
+                            <p>{leader.description}</p>
+                        </div>
                     </div>
-                    <div className="col-9 m-2">
-                        <h4>{leader.name}</h4>
-                        <p>{leader.designation}</p>
-                        <p>{leader.description}</p>
-                    </div>
-                </div>
+                </FadeTransform>
             );
         });
 
@@ -85,7 +93,7 @@ function About(props) {
                     <h2>Corporate Leadership</h2>
                 </div>
                 <div className="col-12">
-                    <RenderLeaders />
+                    <RenderLeaders item={props.leaders.leaders} />
                 </div>
             </div>
         </div>
